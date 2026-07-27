@@ -32,7 +32,9 @@ enum DisplayFormatting {
     static func yearContextString(from date: Date, calendar: Calendar = .autoupdatingCurrent) -> String {
         let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 0
         let week = calendar.component(.weekOfYear, from: date)
-        return "今年第\(dayOfYear)天 · 第\(week)周"
+        let weekday = calendar.component(.weekday, from: date)
+        let dayInWeek = ((weekday - calendar.firstWeekday + 7) % 7) + 1
+        return "今年第\(dayOfYear)天 · 第\(week)周第\(dayInWeek)天"
     }
 
     static func dateString(from date: Date, locale: Locale = interfaceLocale) -> String {

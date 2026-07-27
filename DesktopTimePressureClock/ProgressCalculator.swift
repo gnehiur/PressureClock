@@ -209,14 +209,22 @@ enum ProgressCalculator {
         case .week, .month:
             let days = Double(seconds) / 86_400.0
             guard days >= 1 else { return remainingText(remaining, kind: .day) }
-            return "\(Int(days.rounded()))天"
+            return dayCountText(Int(days.rounded()))
         case .year, .customFixed, .customRecurring:
-            return "\(Int((Double(seconds) / 86_400.0).rounded()))天"
+            return dayCountText(Int((Double(seconds) / 86_400.0).rounded()))
         case .century:
             let years = Double(seconds) / (86_400.0 * 365.2425)
             guard years >= 1 else { return remainingText(remaining, kind: .year) }
             return "\(Int(years.rounded()))年"
         }
+    }
+
+    /// 超过一周的天数,追加"X周零Y天"表达,如 "158天(22周零4天)"
+    private static func dayCountText(_ days: Int) -> String {
+        guard days > 7 else { return "\(days)天" }
+        let weeks = days / 7
+        let remainder = days % 7
+        return remainder == 0 ? "\(days)天(\(weeks)周)" : "\(days)天(\(weeks)周零\(remainder)天)"
     }
 
     private static func clampedProgress(for now: Date, in interval: DateInterval) -> Double {

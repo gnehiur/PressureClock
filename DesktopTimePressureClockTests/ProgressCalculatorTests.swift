@@ -84,7 +84,7 @@ final class ProgressCalculatorTests: XCTestCase {
 
         XCTAssertEqual(snapshot.rightLabel, "29日")
         XCTAssertEqual(snapshot.title, "本月")
-        XCTAssertEqual(snapshot.statusText, "已48% · 剩15天")
+        XCTAssertEqual(snapshot.statusText, "已48% · 剩15天(2周零1天)")
         XCTAssertTrue(snapshot.axisLabels.contains(where: { $0.text == "5日" && $0.prominence == .major }))
         XCTAssertTrue(snapshot.axisLabels.contains(where: { $0.text == "10日" && $0.prominence == .major }))
         XCTAssertTrue(snapshot.axisLabels.contains(where: { $0.text == "15日" && $0.prominence == .major }))
