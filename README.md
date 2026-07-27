@@ -1,4 +1,8 @@
-# PressureClock · 时间压力钟
+<p align="center">
+  <img src="docs/icon.png" width="140" alt="PressureClock">
+</p>
+
+<h1 align="center">PressureClock · 时间压力钟</h1>
 
 一个极简的 macOS / iOS 时钟:大字报时之下,用一组冷静的进度条告诉你——**本 10 分钟、本小时、今天、本周、本月、今年,已经流逝了多少,还剩多少。**
 
