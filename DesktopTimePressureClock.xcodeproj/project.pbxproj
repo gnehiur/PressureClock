@@ -1,0 +1,578 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0F890F69B4E32A9C784C1564 /* ProgressModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562299D59C3B95B83115F000 /* ProgressModels.swift */; };
+		3CAC021A82F5BFEE1D75566E /* ClockEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60FE59947E291EB081C46F2 /* ClockEngine.swift */; };
+		3D5AD774789DEB7C743F466E /* ProgressCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909D4A817A825E12D0C471B3 /* ProgressCalculator.swift */; };
+		45C0C010EBA83497DBC479EE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2283D95CD46D80BD12D802 /* SettingsView.swift */; };
+		5DB961CDAA043F53BF80F483 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACB9FFE1A0E02E4C4B7E7B8 /* AppDelegate.swift */; };
+		5E76BF71ADBD5C27A46B49E6 /* AppSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EA7906485C78DCE2CA163 /* AppSettingsStore.swift */; };
+		5ED021E0CC7A1EE248444B66 /* DisplayFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A7DAA49D0540420FF6337D /* DisplayFormatting.swift */; };
+		72C7F2368DD2E442EDDA1D55 /* MobileDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3724581D00679804311F80 /* MobileDashboardView.swift */; };
+		770AEF4610E0728DCDFA802D /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97D52C38DD412A533643EC2 /* Main.swift */; };
+		7984488F79C3B467287D0775 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C147C8EE80241F030ED5A57 /* Assets.xcassets */; };
+		81DC713EE838E98F24E1D2E8 /* DisplayFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A7DAA49D0540420FF6337D /* DisplayFormatting.swift */; };
+		8E327E889CD72E180825AA0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEFF0E702667DBF5211DC1EC /* Assets.xcassets */; };
+		900DDEEA7487443DE3EFECAF /* ClockDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F481AA413C20169F3E170282 /* ClockDashboardView.swift */; };
+		937242FF3F1CEBB4CAFA4091 /* ProgressBarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610E3A6840C8612350093ECF /* ProgressBarRowView.swift */; };
+		95F37173879E487D65384710 /* ClockEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60FE59947E291EB081C46F2 /* ClockEngine.swift */; };
+		9CA8FE02B97937C616ABE5BA /* ProgressCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA265EE830DEA5673FC6C40B /* ProgressCalculatorTests.swift */; };
+		9CE54E49130AF4B8E48CD0F9 /* ProgressModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562299D59C3B95B83115F000 /* ProgressModels.swift */; };
+		ABD32E49679F82625BFA598C /* WindowStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00069DC105587E30C40E51F7 /* WindowStateStore.swift */; };
+		BB47175D3734DC81037CA1B8 /* AppSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EA7906485C78DCE2CA163 /* AppSettingsStore.swift */; };
+		D218A0D7089426111F666735 /* ProgressBarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610E3A6840C8612350093ECF /* ProgressBarRowView.swift */; };
+		E2EBFDC7549E40EEED244DFD /* ProgressCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909D4A817A825E12D0C471B3 /* ProgressCalculator.swift */; };
+		F8C0B4015C28608278D163BC /* PressureClockMobileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E94082AE0446A2BED55588 /* PressureClockMobileApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D2DFF4A0B20C8C44528FF622 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2D36EEEC4440E401836C5E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D2DB479FF30222BB1F9667A;
+			remoteInfo = DesktopTimePressureClock;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00069DC105587E30C40E51F7 /* WindowStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowStateStore.swift; sourceTree = "<group>"; };
+		14A7DAA49D0540420FF6337D /* DisplayFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayFormatting.swift; sourceTree = "<group>"; };
+		2D2283D95CD46D80BD12D802 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4E4EA7906485C78DCE2CA163 /* AppSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsStore.swift; sourceTree = "<group>"; };
+		562299D59C3B95B83115F000 /* ProgressModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressModels.swift; sourceTree = "<group>"; };
+		5A3724581D00679804311F80 /* MobileDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileDashboardView.swift; sourceTree = "<group>"; };
+		610E3A6840C8612350093ECF /* ProgressBarRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarRowView.swift; sourceTree = "<group>"; };
+		62E94082AE0446A2BED55588 /* PressureClockMobileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressureClockMobileApp.swift; sourceTree = "<group>"; };
+		79AFD4E8C4307C0C2982D66A /* DesktopTimePressureClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesktopTimePressureClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		909D4A817A825E12D0C471B3 /* ProgressCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCalculator.swift; sourceTree = "<group>"; };
+		9C147C8EE80241F030ED5A57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A60FE59947E291EB081C46F2 /* ClockEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockEngine.swift; sourceTree = "<group>"; };
+		C8581858BB967F785ADECDA2 /* DesktopTimePressureClockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesktopTimePressureClockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAD751D8CF3D0E66CEF85794 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D97D52C38DD412A533643EC2 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		E8FE402E7E9C6B61E9885C9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EACB9FFE1A0E02E4C4B7E7B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F19121376E28446296160812 /* PressureClockMobile.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PressureClockMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F481AA413C20169F3E170282 /* ClockDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockDashboardView.swift; sourceTree = "<group>"; };
+		FA265EE830DEA5673FC6C40B /* ProgressCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCalculatorTests.swift; sourceTree = "<group>"; };
+		FEFF0E702667DBF5211DC1EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		32E653999BB4A44A6AE12D25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				79AFD4E8C4307C0C2982D66A /* DesktopTimePressureClock.app */,
+				C8581858BB967F785ADECDA2 /* DesktopTimePressureClockTests.xctest */,
+				F19121376E28446296160812 /* PressureClockMobile.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		822AD607A2BA485C9B124A92 = {
+			isa = PBXGroup;
+			children = (
+				D6CB02EA8D8F199B740A9E9C /* DesktopTimePressureClock */,
+				E7CA0626713CCE0F0668BD46 /* DesktopTimePressureClockTests */,
+				F9153D0826EEF4EF267A6031 /* iOSApp */,
+				32E653999BB4A44A6AE12D25 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D6CB02EA8D8F199B740A9E9C /* DesktopTimePressureClock */ = {
+			isa = PBXGroup;
+			children = (
+				EACB9FFE1A0E02E4C4B7E7B8 /* AppDelegate.swift */,
+				4E4EA7906485C78DCE2CA163 /* AppSettingsStore.swift */,
+				9C147C8EE80241F030ED5A57 /* Assets.xcassets */,
+				F481AA413C20169F3E170282 /* ClockDashboardView.swift */,
+				A60FE59947E291EB081C46F2 /* ClockEngine.swift */,
+				14A7DAA49D0540420FF6337D /* DisplayFormatting.swift */,
+				CAD751D8CF3D0E66CEF85794 /* Info.plist */,
+				D97D52C38DD412A533643EC2 /* Main.swift */,
+				610E3A6840C8612350093ECF /* ProgressBarRowView.swift */,
+				909D4A817A825E12D0C471B3 /* ProgressCalculator.swift */,
+				562299D59C3B95B83115F000 /* ProgressModels.swift */,
+				2D2283D95CD46D80BD12D802 /* SettingsView.swift */,
+				00069DC105587E30C40E51F7 /* WindowStateStore.swift */,
+			);
+			path = DesktopTimePressureClock;
+			sourceTree = "<group>";
+		};
+		E7CA0626713CCE0F0668BD46 /* DesktopTimePressureClockTests */ = {
+			isa = PBXGroup;
+			children = (
+				FA265EE830DEA5673FC6C40B /* ProgressCalculatorTests.swift */,
+			);
+			path = DesktopTimePressureClockTests;
+			sourceTree = "<group>";
+		};
+		F9153D0826EEF4EF267A6031 /* iOSApp */ = {
+			isa = PBXGroup;
+			children = (
+				FEFF0E702667DBF5211DC1EC /* Assets.xcassets */,
+				E8FE402E7E9C6B61E9885C9F /* Info.plist */,
+				5A3724581D00679804311F80 /* MobileDashboardView.swift */,
+				62E94082AE0446A2BED55588 /* PressureClockMobileApp.swift */,
+			);
+			path = iOSApp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4D2DB479FF30222BB1F9667A /* DesktopTimePressureClock */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C809E3938EF54AC88FF3E216 /* Build configuration list for PBXNativeTarget "DesktopTimePressureClock" */;
+			buildPhases = (
+				90A3D3F072658E97AF913433 /* Sources */,
+				5377818049C8D24E544DA9DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DesktopTimePressureClock;
+			packageProductDependencies = (
+			);
+			productName = DesktopTimePressureClock;
+			productReference = 79AFD4E8C4307C0C2982D66A /* DesktopTimePressureClock.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4F46D4B6898D81B8DBF0FB84 /* PressureClockMobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B1A5A72359670D86287D15F /* Build configuration list for PBXNativeTarget "PressureClockMobile" */;
+			buildPhases = (
+				E470F98EA0B945BD847D5B34 /* Sources */,
+				6D30CD99FD8F64AA3153BA8E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PressureClockMobile;
+			packageProductDependencies = (
+			);
+			productName = PressureClockMobile;
+			productReference = F19121376E28446296160812 /* PressureClockMobile.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B1D96F706DD1A48583631777 /* DesktopTimePressureClockTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9694BD4A6C15CA58EA6EF35D /* Build configuration list for PBXNativeTarget "DesktopTimePressureClockTests" */;
+			buildPhases = (
+				AC0C5A154F02A18E13026F4B /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				93F0B0A337738134D898F4D2 /* PBXTargetDependency */,
+			);
+			name = DesktopTimePressureClockTests;
+			packageProductDependencies = (
+			);
+			productName = DesktopTimePressureClockTests;
+			productReference = C8581858BB967F785ADECDA2 /* DesktopTimePressureClockTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D2D36EEEC4440E401836C5E0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					4D2DB479FF30222BB1F9667A = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					4F46D4B6898D81B8DBF0FB84 = {
+						DevelopmentTeam = RU5468UXDG;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 2B34D49CAD1A787AF463BE7A /* Build configuration list for PBXProject "DesktopTimePressureClock" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 822AD607A2BA485C9B124A92;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 32E653999BB4A44A6AE12D25 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4D2DB479FF30222BB1F9667A /* DesktopTimePressureClock */,
+				B1D96F706DD1A48583631777 /* DesktopTimePressureClockTests */,
+				4F46D4B6898D81B8DBF0FB84 /* PressureClockMobile */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5377818049C8D24E544DA9DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7984488F79C3B467287D0775 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D30CD99FD8F64AA3153BA8E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E327E889CD72E180825AA0C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		90A3D3F072658E97AF913433 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DB961CDAA043F53BF80F483 /* AppDelegate.swift in Sources */,
+				BB47175D3734DC81037CA1B8 /* AppSettingsStore.swift in Sources */,
+				900DDEEA7487443DE3EFECAF /* ClockDashboardView.swift in Sources */,
+				3CAC021A82F5BFEE1D75566E /* ClockEngine.swift in Sources */,
+				81DC713EE838E98F24E1D2E8 /* DisplayFormatting.swift in Sources */,
+				770AEF4610E0728DCDFA802D /* Main.swift in Sources */,
+				D218A0D7089426111F666735 /* ProgressBarRowView.swift in Sources */,
+				3D5AD774789DEB7C743F466E /* ProgressCalculator.swift in Sources */,
+				0F890F69B4E32A9C784C1564 /* ProgressModels.swift in Sources */,
+				45C0C010EBA83497DBC479EE /* SettingsView.swift in Sources */,
+				ABD32E49679F82625BFA598C /* WindowStateStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC0C5A154F02A18E13026F4B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CA8FE02B97937C616ABE5BA /* ProgressCalculatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E470F98EA0B945BD847D5B34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E76BF71ADBD5C27A46B49E6 /* AppSettingsStore.swift in Sources */,
+				95F37173879E487D65384710 /* ClockEngine.swift in Sources */,
+				5ED021E0CC7A1EE248444B66 /* DisplayFormatting.swift in Sources */,
+				72C7F2368DD2E442EDDA1D55 /* MobileDashboardView.swift in Sources */,
+				F8C0B4015C28608278D163BC /* PressureClockMobileApp.swift in Sources */,
+				937242FF3F1CEBB4CAFA4091 /* ProgressBarRowView.swift in Sources */,
+				E2EBFDC7549E40EEED244DFD /* ProgressCalculator.swift in Sources */,
+				9CE54E49130AF4B8E48CD0F9 /* ProgressModels.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		93F0B0A337738134D898F4D2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D2DB479FF30222BB1F9667A /* DesktopTimePressureClock */;
+			targetProxy = D2DFF4A0B20C8C44528FF622 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0EB67E7828F4DD77045A62D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DesktopTimePressureClock/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mini.DesktopTimePressureClock;
+				PRODUCT_MODULE_NAME = DesktopTimePressureClock;
+				PRODUCT_NAME = PressureClock;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		26998DE05C80BD3770FED286 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RU5468UXDG;
+				INFOPLIST_FILE = iOSApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mini.PressureClockMobile;
+				PRODUCT_NAME = PressureClock;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		45A6ABDD2CD3C4C00BB85612 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		6BFC4BF2D273B4C7B89CAA1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RU5468UXDG;
+				INFOPLIST_FILE = iOSApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mini.PressureClockMobile;
+				PRODUCT_NAME = PressureClock;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		954BF733B6CEB39D84DA70AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		D1692FB61CD31F5D4D5C6085 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PressureClock.app/Contents/MacOS/PressureClock";
+			};
+			name = Release;
+		};
+		DB042A9FB20562AF41DBF725 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PressureClock.app/Contents/MacOS/PressureClock";
+			};
+			name = Debug;
+		};
+		DC2F690FBD9987A4E55ADE9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DesktopTimePressureClock/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mini.DesktopTimePressureClock;
+				PRODUCT_MODULE_NAME = DesktopTimePressureClock;
+				PRODUCT_NAME = PressureClock;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1B1A5A72359670D86287D15F /* Build configuration list for PBXNativeTarget "PressureClockMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26998DE05C80BD3770FED286 /* Debug */,
+				6BFC4BF2D273B4C7B89CAA1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		2B34D49CAD1A787AF463BE7A /* Build configuration list for PBXProject "DesktopTimePressureClock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				954BF733B6CEB39D84DA70AC /* Debug */,
+				45A6ABDD2CD3C4C00BB85612 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9694BD4A6C15CA58EA6EF35D /* Build configuration list for PBXNativeTarget "DesktopTimePressureClockTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB042A9FB20562AF41DBF725 /* Debug */,
+				D1692FB61CD31F5D4D5C6085 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C809E3938EF54AC88FF3E216 /* Build configuration list for PBXNativeTarget "DesktopTimePressureClock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0EB67E7828F4DD77045A62D6 /* Debug */,
+				DC2F690FBD9987A4E55ADE9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D2D36EEEC4440E401836C5E0 /* Project object */;
+}

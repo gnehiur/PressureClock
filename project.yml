@@ -1,0 +1,79 @@
+name: DesktopTimePressureClock
+options:
+  minimumXcodeGenVersion: 2.39.0
+settings:
+  base:
+    SWIFT_VERSION: 6.0
+    MARKETING_VERSION: 0.1.0
+    CURRENT_PROJECT_VERSION: 1
+targets:
+  DesktopTimePressureClock:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: DesktopTimePressureClock
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mini.DesktopTimePressureClock
+        PRODUCT_MODULE_NAME: DesktopTimePressureClock
+        PRODUCT_NAME: PressureClock
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: DesktopTimePressureClock/Info.plist
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: ""
+        MACOSX_DEPLOYMENT_TARGET: 14.0
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    scheme:
+      testTargets:
+        - DesktopTimePressureClockTests
+  PressureClockMobile:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: DesktopTimePressureClock
+        includes:
+          - ProgressCalculator.swift
+          - ProgressModels.swift
+          - DisplayFormatting.swift
+          - AppSettingsStore.swift
+          - ClockEngine.swift
+          - ProgressBarRowView.swift
+      - path: iOSApp
+    info:
+      path: iOSApp/Info.plist
+      properties:
+        CFBundleDisplayName: PressureClock
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mini.PressureClockMobile
+        PRODUCT_NAME: PressureClock
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: RU5468UXDG
+        TARGETED_DEVICE_FAMILY: "1"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    scheme:
+      testTargets: []
+  DesktopTimePressureClockTests:
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: DesktopTimePressureClockTests
+    settings:
+      base:
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/PressureClock.app/Contents/MacOS/PressureClock"
+    dependencies:
+      - target: DesktopTimePressureClock
