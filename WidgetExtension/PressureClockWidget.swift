@@ -7,7 +7,7 @@ struct PressureEntry: TimelineEntry {
 }
 
 enum PressureEntryBuilder {
-    static let kinds: [ProgressKind] = [.hour, .day, .week, .month, .year]
+    static let kinds: [ProgressKind] = [.day, .week, .month, .year]
 
     static func entry(at date: Date) -> PressureEntry {
         var snapshots: [ProgressKind: ProgressSnapshot] = [:]
