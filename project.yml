@@ -28,6 +28,41 @@ targets:
     scheme:
       testTargets:
         - DesktopTimePressureClockTests
+    dependencies:
+      - target: PressureClockWidget
+  PressureClockWidget:
+    type: app-extension
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: DesktopTimePressureClock
+        includes:
+          - ProgressCalculator.swift
+          - ProgressModels.swift
+          - DisplayFormatting.swift
+      - path: WidgetExtension
+    info:
+      path: WidgetExtension/Info.plist
+      properties:
+        CFBundleDisplayName: PressureClock
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: WidgetExtension/PressureClockWidget.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mini.DesktopTimePressureClock.PressureClockWidget
+        PRODUCT_MODULE_NAME: PressureClockWidget
+        PRODUCT_NAME: PressureClockWidget
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: ""
+        MACOSX_DEPLOYMENT_TARGET: 14.0
+        SKIP_INSTALL: YES
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: NO
   PressureClockMobile:
     type: application
     platform: iOS
