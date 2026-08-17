@@ -12,13 +12,13 @@ enum DisplayFormatting {
     private static var timeFormatterCache: [String: DateFormatter] = [:]
     private static var dateFormatterCache: [String: DateFormatter] = [:]
 
-    static func timeString(from date: Date, precision: TimePrecision) -> String {
-        let formatter = formatterForTime(precision: precision)
+    static func timeString(from date: Date, precision: TimePrecision, timeZone: TimeZone = .autoupdatingCurrent) -> String {
+        let formatter = formatterForTime(precision: precision, timeZone: timeZone)
         return formatter.string(from: date)
     }
 
-    static func timeDisplayParts(from date: Date, precision: TimePrecision) -> TimeDisplayParts {
-        let fullText = timeString(from: date, precision: precision)
+    static func timeDisplayParts(from date: Date, precision: TimePrecision, timeZone: TimeZone = .autoupdatingCurrent) -> TimeDisplayParts {
+        let fullText = timeString(from: date, precision: precision, timeZone: timeZone)
         guard let separatorIndex = fullText.firstIndex(of: ".") else {
             return TimeDisplayParts(primaryText: fullText, fractionalText: nil)
         }
@@ -37,8 +37,8 @@ enum DisplayFormatting {
         return "今年第\(dayOfYear)天 · 第\(week)周第\(dayInWeek)天"
     }
 
-    static func dateString(from date: Date, locale: Locale = interfaceLocale) -> String {
-        let formatter = formatterForDate(locale: locale)
+    static func dateString(from date: Date, locale: Locale = interfaceLocale, timeZone: TimeZone = .autoupdatingCurrent) -> String {
+        let formatter = formatterForDate(locale: locale, timeZone: timeZone)
         return formatter.string(from: date)
     }
 
@@ -51,29 +51,29 @@ enum DisplayFormatting {
         return formatter.string(from: date)
     }
 
-    private static func formatterForTime(precision: TimePrecision) -> DateFormatter {
-        let key = precision.formatPattern
+    private static func formatterForTime(precision: TimePrecision, timeZone: TimeZone) -> DateFormatter {
+        let key = "\(precision.formatPattern)-\(timeZone.identifier)"
         if let formatter = timeFormatterCache[key] {
             return formatter
         }
 
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = .autoupdatingCurrent
+        formatter.timeZone = timeZone
         formatter.dateFormat = precision.formatPattern
         timeFormatterCache[key] = formatter
         return formatter
     }
 
-    private static func formatterForDate(locale: Locale) -> DateFormatter {
-        let key = locale.identifier
+    private static func formatterForDate(locale: Locale, timeZone: TimeZone = .autoupdatingCurrent) -> DateFormatter {
+        let key = "\(locale.identifier)-\(timeZone.identifier)"
         if let formatter = dateFormatterCache[key] {
             return formatter
         }
 
         let formatter = DateFormatter()
         formatter.locale = locale
-        formatter.timeZone = .autoupdatingCurrent
+        formatter.timeZone = timeZone
 
         if locale.identifier.hasPrefix("zh") {
             formatter.dateFormat = "M月d日 EEE"

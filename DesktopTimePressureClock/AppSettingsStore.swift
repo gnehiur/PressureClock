@@ -26,6 +26,11 @@ final class AppSettingsStore: ObservableObject {
         didSet { persistIfReady() }
     }
 
+    /// nil = 跟随系统时区;否则为固定时区标识(如 Asia/Shanghai)
+    @Published var timeZoneIdentifier: String? {
+        didSet { persistIfReady() }
+    }
+
     @Published private(set) var progressItems: [ProgressItem] {
         didSet { persistIfReady() }
     }
@@ -61,6 +66,7 @@ final class AppSettingsStore: ObservableObject {
         self.backgroundOpacity = min(max(snapshot.backgroundOpacity, 0.55), 1.0)
         self.restoreWindowOnLaunch = snapshot.restoreWindowOnLaunch
         self.sleepSchedule = snapshot.sleepSchedule ?? .default
+        self.timeZoneIdentifier = snapshot.timeZoneIdentifier
         self.progressItems = Self.normalized(snapshot.progressItems)
         self.storedWindowFrameString = snapshot.storedWindowFrameString
 
@@ -71,6 +77,18 @@ final class AppSettingsStore: ObservableObject {
         }
 
         persist()
+    }
+
+    /// 生效时区:固定标识失效(如拼写错误)时回落系统时区
+    var effectiveTimeZone: TimeZone {
+        timeZoneIdentifier.flatMap { TimeZone(identifier: $0) } ?? .autoupdatingCurrent
+    }
+
+    /// 带生效时区的日历,喂给 ProgressCalculator 后全部进度口径随之切换
+    var effectiveCalendar: Calendar {
+        var calendar = Calendar.autoupdatingCurrent
+        calendar.timeZone = effectiveTimeZone
+        return calendar
     }
 
     var orderedProgressItems: [ProgressItem] {
@@ -208,7 +226,8 @@ final class AppSettingsStore: ObservableObject {
             restoreWindowOnLaunch: restoreWindowOnLaunch,
             progressItems: progressItems,
             storedWindowFrameString: storedWindowFrameString,
-            sleepSchedule: sleepSchedule
+            sleepSchedule: sleepSchedule,
+            timeZoneIdentifier: timeZoneIdentifier
         )
 
         do {
@@ -239,7 +258,8 @@ final class AppSettingsStore: ObservableObject {
             restoreWindowOnLaunch: true,
             progressItems: ProgressItem.defaultItems(),
             storedWindowFrameString: nil,
-            sleepSchedule: .default
+            sleepSchedule: .default,
+            timeZoneIdentifier: nil
         )
     }
 
@@ -315,6 +335,23 @@ final class AppSettingsStore: ObservableObject {
     }
 }
 
+/// 时区选择目录:常用组置顶(用户生活圈),其余按标识排序
+enum TimeZonePickerCatalog {
+    static let commonIdentifiers = ["Asia/Shanghai", "America/Los_Angeles"]
+
+    static let otherIdentifiers: [String] = TimeZone.knownTimeZoneIdentifiers
+        .filter { !commonIdentifiers.contains($0) }
+        .sorted()
+
+    static func offsetText(for timeZone: TimeZone) -> String {
+        let seconds = timeZone.secondsFromGMT()
+        let sign = seconds < 0 ? "-" : "+"
+        let hours = abs(seconds) / 3_600
+        let minutes = (abs(seconds) % 3_600) / 60
+        return minutes == 0 ? "GMT\(sign)\(hours)" : String(format: "GMT%@%d:%02d", sign, hours, minutes)
+    }
+}
+
 private enum SnapshotLoadResult {
     case success(PersistedSettings)
     case missing
@@ -329,6 +366,7 @@ private struct PersistedSettings: Codable {
     var progressItems: [ProgressItem]
     var storedWindowFrameString: String?
     var sleepSchedule: SleepScheduleConfig?
+    var timeZoneIdentifier: String?
 }
 
 private extension String {

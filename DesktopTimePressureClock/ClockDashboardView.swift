@@ -13,7 +13,7 @@ struct ClockDashboardView: View {
     var body: some View {
         GeometryReader { geometry in
             let timeFontSize = max(52, min(geometry.size.width * 0.17, geometry.size.height * 0.26))
-            let timeParts = DisplayFormatting.timeDisplayParts(from: clockEngine.now, precision: settingsStore.timePrecision)
+            let timeParts = DisplayFormatting.timeDisplayParts(from: clockEngine.now, precision: settingsStore.timePrecision, timeZone: settingsStore.effectiveTimeZone)
             let dateFontSize = max(18, timeFontSize * 0.20)
             let snapshots = buildSnapshots()
 
@@ -42,13 +42,13 @@ struct ClockDashboardView: View {
                             .monospacedDigit()
 
                             HStack(alignment: .firstTextBaseline, spacing: 10) {
-                                Text(DisplayFormatting.dateString(from: clockEngine.progressNow))
+                                Text(DisplayFormatting.dateString(from: clockEngine.progressNow, timeZone: settingsStore.effectiveTimeZone))
                                     .font(.system(size: dateFontSize, weight: .medium))
                                     .foregroundStyle(.white.opacity(0.62))
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.7)
 
-                                Text(DisplayFormatting.yearContextString(from: clockEngine.progressNow))
+                                Text(DisplayFormatting.yearContextString(from: clockEngine.progressNow, calendar: settingsStore.effectiveCalendar))
                                     .font(.system(size: dateFontSize * 0.78, weight: .medium))
                                     .monospacedDigit()
                                     .foregroundStyle(.white.opacity(0.36))
@@ -90,7 +90,7 @@ struct ClockDashboardView: View {
 
     private func buildSnapshots() -> [ProgressSnapshot] {
         settingsStore.orderedProgressItems.compactMap { item in
-            ProgressCalculator.snapshot(for: item, at: referenceDate(for: item), sleepSchedule: settingsStore.sleepSchedule)
+            ProgressCalculator.snapshot(for: item, at: referenceDate(for: item), calendar: settingsStore.effectiveCalendar, sleepSchedule: settingsStore.sleepSchedule)
         }
     }
 

@@ -74,6 +74,32 @@ struct SettingsView: View {
                     .padding(.top, 4)
                 }
 
+                GroupBox(label: sectionTitle("时区")) {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Toggle("跟随系统时区", isOn: followSystemTimeZoneBinding)
+
+                        if settingsStore.timeZoneIdentifier != nil {
+                            Picker("固定时区", selection: timeZoneBinding) {
+                                ForEach(TimeZonePickerCatalog.commonIdentifiers, id: \.self) { identifier in
+                                    Text(timeZoneRowText(identifier)).tag(identifier)
+                                }
+                                Divider()
+                                ForEach(TimeZonePickerCatalog.otherIdentifiers, id: \.self) { identifier in
+                                    Text(identifier).tag(identifier)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            .fixedSize()
+                        }
+
+                        Text("当前生效：\(settingsStore.effectiveTimeZone.identifier)（\(TimeZonePickerCatalog.offsetText(for: settingsStore.effectiveTimeZone))）。时钟、日期和所有进度条都按此时区计算——本机系统时区设在美西时，把这里钉在 Asia/Shanghai 即可按上海时间过日子。")
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .padding(.top, 4)
+                }
+
                 GroupBox(label: sectionTitle("外观")) {
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
@@ -175,6 +201,27 @@ struct SettingsView: View {
 
     private var backgroundOpacityLabel: String {
         String(format: "%.0f%%", settingsStore.backgroundOpacity * 100)
+    }
+
+    private var followSystemTimeZoneBinding: Binding<Bool> {
+        Binding(
+            get: { settingsStore.timeZoneIdentifier == nil },
+            set: { follow in
+                settingsStore.timeZoneIdentifier = follow ? nil : TimeZone.autoupdatingCurrent.identifier
+            }
+        )
+    }
+
+    private var timeZoneBinding: Binding<String> {
+        Binding(
+            get: { settingsStore.timeZoneIdentifier ?? TimeZone.autoupdatingCurrent.identifier },
+            set: { settingsStore.timeZoneIdentifier = $0 }
+        )
+    }
+
+    private func timeZoneRowText(_ identifier: String) -> String {
+        guard let timeZone = TimeZone(identifier: identifier) else { return identifier }
+        return "\(identifier)（\(TimeZonePickerCatalog.offsetText(for: timeZone))）"
     }
 
     private var sleepEnabledBinding: Binding<Bool> {

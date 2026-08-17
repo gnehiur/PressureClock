@@ -388,6 +388,27 @@ final class ProgressCalculatorTests: XCTestCase {
         XCTAssertTrue(snapshot.shadedRegions.isEmpty)
     }
 
+    func testDayProgressFollowsCalendarTimeZone() throws {
+        // 同一物理瞬间:UTC 2026-08-17 20:00 = 上海 08-18 04:00 = 洛杉矶(PDT) 08-17 13:00
+        let instant = makeDate(year: 2026, month: 8, day: 17, hour: 20, minute: 0, second: 0)
+        let item = ProgressItem.builtIn(kind: .day, isEnabled: true, sortOrder: 0)
+
+        var shanghai = Calendar(identifier: .gregorian)
+        shanghai.timeZone = TimeZone(identifier: "Asia/Shanghai")!
+        var losAngeles = Calendar(identifier: .gregorian)
+        losAngeles.timeZone = TimeZone(identifier: "America/Los_Angeles")!
+
+        let shanghaiSnapshot = try XCTUnwrap(
+            ProgressCalculator.snapshot(for: item, at: instant, calendar: shanghai, locale: locale)
+        )
+        let losAngelesSnapshot = try XCTUnwrap(
+            ProgressCalculator.snapshot(for: item, at: instant, calendar: losAngeles, locale: locale)
+        )
+
+        XCTAssertEqual(shanghaiSnapshot.progress, 4.0 / 24.0, accuracy: 0.00001)
+        XCTAssertEqual(losAngelesSnapshot.progress, 13.0 / 24.0, accuracy: 0.00001)
+    }
+
     private func makeDate(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) -> Date {
         var components = DateComponents()
         components.calendar = calendar
