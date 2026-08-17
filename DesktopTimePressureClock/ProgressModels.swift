@@ -285,6 +285,15 @@ struct ProgressItem: Identifiable, Codable, Equatable {
     }
 }
 
+/// 睡眠时段:以"距 0 点的分钟数"表达,起点可大于终点(跨午夜,如 22:00→07:00)。
+struct SleepScheduleConfig: Codable, Equatable {
+    var isEnabled: Bool
+    var startMinutes: Int
+    var endMinutes: Int
+
+    static let `default` = SleepScheduleConfig(isEnabled: true, startMinutes: 22 * 60, endMinutes: 7 * 60)
+}
+
 struct ProgressSnapshot: Identifiable, Equatable {
     var id: UUID
     var title: String
@@ -298,6 +307,8 @@ struct ProgressSnapshot: Identifiable, Equatable {
     var axisLabels: [ProgressAxisLabel]
     var axisLabelDisplayMode: ProgressAxisLabelDisplayMode = .adaptive
     var kind: ProgressKind? = nil
+    /// 压暗渲染的区间(归一化位置),目前用于今日条的睡眠时段
+    var shadedRegions: [ClosedRange<Double>] = []
 }
 
 enum ProgressAxisLabelDisplayMode: Equatable {

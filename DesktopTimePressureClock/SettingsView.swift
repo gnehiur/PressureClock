@@ -54,6 +54,26 @@ struct SettingsView: View {
                     .padding(.top, 4)
                 }
 
+                GroupBox(label: sectionTitle("睡眠")) {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Toggle("在“今日”条上标记睡眠时段", isOn: sleepEnabledBinding)
+
+                        if settingsStore.sleepSchedule.isEnabled {
+                            HStack(spacing: 18) {
+                                DatePicker("入睡", selection: sleepTimeBinding(\.startMinutes), displayedComponents: .hourAndMinute)
+                                DatePicker("起床", selection: sleepTimeBinding(\.endMinutes), displayedComponents: .hourAndMinute)
+                            }
+                            .fixedSize()
+                        }
+
+                        Text("睡眠区间在今日刻度条上压暗显示，跨午夜自动拆成条头和条尾两段，边界记号标出入睡与起床时刻——醒着的时间一眼可见。")
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .padding(.top, 4)
+                }
+
                 GroupBox(label: sectionTitle("外观")) {
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
@@ -155,6 +175,34 @@ struct SettingsView: View {
 
     private var backgroundOpacityLabel: String {
         String(format: "%.0f%%", settingsStore.backgroundOpacity * 100)
+    }
+
+    private var sleepEnabledBinding: Binding<Bool> {
+        Binding(
+            get: { settingsStore.sleepSchedule.isEnabled },
+            set: { settingsStore.sleepSchedule.isEnabled = $0 }
+        )
+    }
+
+    /// 分钟数 ↔ 当天时刻 Date 的桥,DatePicker 只认 Date
+    private func sleepTimeBinding(_ keyPath: WritableKeyPath<SleepScheduleConfig, Int>) -> Binding<Date> {
+        Binding(
+            get: {
+                let calendar = Calendar.autoupdatingCurrent
+                let minutes = settingsStore.sleepSchedule[keyPath: keyPath]
+                return calendar.date(
+                    bySettingHour: (minutes / 60) % 24,
+                    minute: minutes % 60,
+                    second: 0,
+                    of: calendar.startOfDay(for: Date())
+                ) ?? Date()
+            },
+            set: { date in
+                let calendar = Calendar.autoupdatingCurrent
+                let components = calendar.dateComponents([.hour, .minute], from: date)
+                settingsStore.sleepSchedule[keyPath: keyPath] = (components.hour ?? 0) * 60 + (components.minute ?? 0)
+            }
+        )
     }
 
     private func sectionTitle(_ title: String) -> some View {

@@ -50,6 +50,10 @@ struct ProgressBarRowView: View {
 
                         progressFill(width: geometry.size.width, metrics: metrics)
 
+                        ForEach(Array(snapshot.shadedRegions.enumerated()), id: \.offset) { _, region in
+                            shadedRegionView(region: region, width: geometry.size.width, metrics: metrics)
+                        }
+
                         ForEach(boundaryTickPositions, id: \.self) { position in
                             tickView(
                                 x: horizontalOffset(for: position, itemWidth: metrics.majorTickWidth, totalWidth: geometry.size.width),
@@ -139,6 +143,31 @@ struct ProgressBarRowView: View {
             .fill(Color.white.opacity(0.82))
             .frame(width: max(snapped(width * snapshot.progress), 0), height: metrics.trackHeight)
             .offset(y: metrics.trackVerticalOffset)
+    }
+
+    /// 睡眠区间压暗:黑色半透明罩在轨道与填充之上、刻度之下;区间边界(非条头条尾)立一根记号
+    private func shadedRegionView(region: ClosedRange<Double>, width: CGFloat, metrics: AxisMetrics) -> some View {
+        let epsilon = 0.0001
+        let startX = snapped(width * CGFloat(region.lowerBound))
+        let regionWidth = max(snapped(width * CGFloat(region.upperBound - region.lowerBound)), 0)
+        let edges = [region.lowerBound, region.upperBound].filter { $0 > epsilon && $0 < 1.0 - epsilon }
+
+        return ZStack(alignment: .leading) {
+            Rectangle()
+                .fill(Color.black.opacity(0.55))
+                .frame(width: regionWidth, height: metrics.trackHeight)
+                .offset(x: startX, y: metrics.trackVerticalOffset)
+
+            ForEach(edges, id: \.self) { edge in
+                Rectangle()
+                    .fill(Color.white.opacity(0.46))
+                    .frame(width: metrics.majorTickWidth, height: metrics.boundaryTickHeight)
+                    .offset(
+                        x: snappedHorizontalOffset(for: edge, itemWidth: metrics.majorTickWidth, totalWidth: width),
+                        y: (metrics.axisHeight - metrics.boundaryTickHeight) / 2
+                    )
+            }
+        }
     }
 
     private func markerView(width: CGFloat, metrics: AxisMetrics) -> some View {

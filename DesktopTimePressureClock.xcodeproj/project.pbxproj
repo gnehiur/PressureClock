@@ -32,6 +32,7 @@
 		9CE54E49130AF4B8E48CD0F9 /* ProgressModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562299D59C3B95B83115F000 /* ProgressModels.swift */; };
 		ABD32E49679F82625BFA598C /* WindowStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00069DC105587E30C40E51F7 /* WindowStateStore.swift */; };
 		BB47175D3734DC81037CA1B8 /* AppSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EA7906485C78DCE2CA163 /* AppSettingsStore.swift */; };
+		D122872C13BEDD1E85D35C79 /* MobileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6BB8A67728FCC49F6F260 /* MobileSettingsView.swift */; };
 		D218A0D7089426111F666735 /* ProgressBarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610E3A6840C8612350093ECF /* ProgressBarRowView.swift */; };
 		E2EBFDC7549E40EEED244DFD /* ProgressCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909D4A817A825E12D0C471B3 /* ProgressCalculator.swift */; };
 		F8C0B4015C28608278D163BC /* PressureClockMobileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E94082AE0446A2BED55588 /* PressureClockMobileApp.swift */; };
@@ -78,6 +79,7 @@
 		5A3724581D00679804311F80 /* MobileDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileDashboardView.swift; sourceTree = "<group>"; };
 		610E3A6840C8612350093ECF /* ProgressBarRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarRowView.swift; sourceTree = "<group>"; };
 		62E94082AE0446A2BED55588 /* PressureClockMobileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressureClockMobileApp.swift; sourceTree = "<group>"; };
+		6AF6BB8A67728FCC49F6F260 /* MobileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileSettingsView.swift; sourceTree = "<group>"; };
 		71CD11F8E98F9E14748BB99F /* PressureClockWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PressureClockWidget.entitlements; sourceTree = "<group>"; };
 		79AFD4E8C4307C0C2982D66A /* DesktopTimePressureClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesktopTimePressureClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		909D4A817A825E12D0C471B3 /* ProgressCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCalculator.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				FEFF0E702667DBF5211DC1EC /* Assets.xcassets */,
 				E8FE402E7E9C6B61E9885C9F /* Info.plist */,
 				5A3724581D00679804311F80 /* MobileDashboardView.swift */,
+				6AF6BB8A67728FCC49F6F260 /* MobileSettingsView.swift */,
 				62E94082AE0446A2BED55588 /* PressureClockMobileApp.swift */,
 			);
 			path = iOSApp;
@@ -348,6 +351,7 @@
 				95F37173879E487D65384710 /* ClockEngine.swift in Sources */,
 				5ED021E0CC7A1EE248444B66 /* DisplayFormatting.swift in Sources */,
 				72C7F2368DD2E442EDDA1D55 /* MobileDashboardView.swift in Sources */,
+				D122872C13BEDD1E85D35C79 /* MobileSettingsView.swift in Sources */,
 				F8C0B4015C28608278D163BC /* PressureClockMobileApp.swift in Sources */,
 				937242FF3F1CEBB4CAFA4091 /* ProgressBarRowView.swift in Sources */,
 				E2EBFDC7549E40EEED244DFD /* ProgressCalculator.swift in Sources */,

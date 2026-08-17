@@ -3,6 +3,7 @@ import SwiftUI
 struct MobileDashboardView: View {
     @EnvironmentObject private var settingsStore: AppSettingsStore
     @EnvironmentObject private var clockEngine: ClockEngine
+    @State private var showsSettings = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -69,12 +70,30 @@ struct MobileDashboardView: View {
                     .padding(.bottom, 24)
                 }
             }
+            .overlay(alignment: .topTrailing) {
+                Button {
+                    showsSettings = true
+                } label: {
+                    Image(systemName: "gearshape.fill")
+                        .font(.system(size: 17, weight: .medium))
+                        .foregroundStyle(.white.opacity(0.30))
+                        .padding(12)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .padding(.top, max(6, geometry.size.height * 0.015))
+                .padding(.trailing, 8)
+            }
+            .sheet(isPresented: $showsSettings) {
+                MobileSettingsView()
+                    .environmentObject(settingsStore)
+            }
         }
     }
 
     private func buildSnapshots() -> [ProgressSnapshot] {
         settingsStore.orderedProgressItems.compactMap { item in
-            ProgressCalculator.snapshot(for: item, at: referenceDate(for: item))
+            ProgressCalculator.snapshot(for: item, at: referenceDate(for: item), sleepSchedule: settingsStore.sleepSchedule)
         }
     }
 

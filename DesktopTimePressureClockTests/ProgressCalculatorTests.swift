@@ -340,6 +340,51 @@ final class ProgressCalculatorTests: XCTestCase {
         XCTAssertEqual(defaults.data(forKey: "DesktopTimePressureClock.SettingsUnreadableBackup"), unreadableData)
     }
 
+    func testSleepScheduleCrossingMidnightSplitsIntoTwoRegions() throws {
+        let schedule = SleepScheduleConfig(isEnabled: true, startMinutes: 22 * 60, endMinutes: 7 * 60)
+        let now = makeDate(year: 2026, month: 8, day: 17, hour: 12, minute: 0, second: 0)
+        let item = ProgressItem.builtIn(kind: .day, isEnabled: true, sortOrder: 0)
+
+        let snapshot = try XCTUnwrap(
+            ProgressCalculator.snapshot(for: item, at: now, calendar: calendar, locale: locale, sleepSchedule: schedule)
+        )
+
+        XCTAssertEqual(snapshot.shadedRegions.count, 2)
+        XCTAssertEqual(snapshot.shadedRegions[0].lowerBound, 22.0 / 24.0, accuracy: 0.00001)
+        XCTAssertEqual(snapshot.shadedRegions[0].upperBound, 1.0, accuracy: 0.00001)
+        XCTAssertEqual(snapshot.shadedRegions[1].lowerBound, 0.0, accuracy: 0.00001)
+        XCTAssertEqual(snapshot.shadedRegions[1].upperBound, 7.0 / 24.0, accuracy: 0.00001)
+    }
+
+    func testSleepScheduleWithinSameDayIsSingleRegion() {
+        let schedule = SleepScheduleConfig(isEnabled: true, startMinutes: 1 * 60, endMinutes: 9 * 60)
+
+        let regions = ProgressCalculator.sleepShadedRegions(for: schedule)
+
+        XCTAssertEqual(regions.count, 1)
+        XCTAssertEqual(regions[0].lowerBound, 1.0 / 24.0, accuracy: 0.00001)
+        XCTAssertEqual(regions[0].upperBound, 9.0 / 24.0, accuracy: 0.00001)
+    }
+
+    func testSleepScheduleDisabledOrMissingYieldsNoRegions() {
+        let disabled = SleepScheduleConfig(isEnabled: false, startMinutes: 22 * 60, endMinutes: 7 * 60)
+
+        XCTAssertTrue(ProgressCalculator.sleepShadedRegions(for: disabled).isEmpty)
+        XCTAssertTrue(ProgressCalculator.sleepShadedRegions(for: nil).isEmpty)
+    }
+
+    func testSleepScheduleDoesNotShadeNonDayKinds() throws {
+        let schedule = SleepScheduleConfig(isEnabled: true, startMinutes: 22 * 60, endMinutes: 7 * 60)
+        let now = makeDate(year: 2026, month: 8, day: 17, hour: 12, minute: 0, second: 0)
+        let item = ProgressItem.builtIn(kind: .week, isEnabled: true, sortOrder: 0)
+
+        let snapshot = try XCTUnwrap(
+            ProgressCalculator.snapshot(for: item, at: now, calendar: calendar, locale: locale, sleepSchedule: schedule)
+        )
+
+        XCTAssertTrue(snapshot.shadedRegions.isEmpty)
+    }
+
     private func makeDate(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) -> Date {
         var components = DateComponents()
         components.calendar = calendar

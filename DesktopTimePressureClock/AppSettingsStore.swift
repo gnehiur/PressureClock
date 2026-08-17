@@ -22,6 +22,10 @@ final class AppSettingsStore: ObservableObject {
         didSet { persistIfReady() }
     }
 
+    @Published var sleepSchedule: SleepScheduleConfig {
+        didSet { persistIfReady() }
+    }
+
     @Published private(set) var progressItems: [ProgressItem] {
         didSet { persistIfReady() }
     }
@@ -56,6 +60,7 @@ final class AppSettingsStore: ObservableObject {
         self.timePrecision = snapshot.timePrecision
         self.backgroundOpacity = min(max(snapshot.backgroundOpacity, 0.55), 1.0)
         self.restoreWindowOnLaunch = snapshot.restoreWindowOnLaunch
+        self.sleepSchedule = snapshot.sleepSchedule ?? .default
         self.progressItems = Self.normalized(snapshot.progressItems)
         self.storedWindowFrameString = snapshot.storedWindowFrameString
 
@@ -202,7 +207,8 @@ final class AppSettingsStore: ObservableObject {
             backgroundOpacity: backgroundOpacity,
             restoreWindowOnLaunch: restoreWindowOnLaunch,
             progressItems: progressItems,
-            storedWindowFrameString: storedWindowFrameString
+            storedWindowFrameString: storedWindowFrameString,
+            sleepSchedule: sleepSchedule
         )
 
         do {
@@ -232,7 +238,8 @@ final class AppSettingsStore: ObservableObject {
             backgroundOpacity: 0.96,
             restoreWindowOnLaunch: true,
             progressItems: ProgressItem.defaultItems(),
-            storedWindowFrameString: nil
+            storedWindowFrameString: nil,
+            sleepSchedule: .default
         )
     }
 
@@ -321,6 +328,7 @@ private struct PersistedSettings: Codable {
     var restoreWindowOnLaunch: Bool
     var progressItems: [ProgressItem]
     var storedWindowFrameString: String?
+    var sleepSchedule: SleepScheduleConfig?
 }
 
 private extension String {

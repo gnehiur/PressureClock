@@ -5,7 +5,8 @@ enum ProgressCalculator {
         for item: ProgressItem,
         at now: Date,
         calendar: Calendar = .autoupdatingCurrent,
-        locale: Locale = DisplayFormatting.interfaceLocale
+        locale: Locale = DisplayFormatting.interfaceLocale,
+        sleepSchedule: SleepScheduleConfig? = nil
     ) -> ProgressSnapshot? {
         guard item.isEnabled else { return nil }
 
@@ -56,7 +57,8 @@ enum ProgressCalculator {
                 leftLabel: "0.00",
                 rightLabel: "24.00",
                 ticks: dayTicks(),
-                axisLabels: dayAxisLabels()
+                axisLabels: dayAxisLabels(),
+                shadedRegions: sleepShadedRegions(for: sleepSchedule)
             )
 
         case .week:
@@ -171,7 +173,8 @@ enum ProgressCalculator {
         rightLabel: String,
         ticks: [ProgressTick],
         axisLabels: [ProgressAxisLabel],
-        axisLabelDisplayMode: ProgressAxisLabelDisplayMode = .adaptive
+        axisLabelDisplayMode: ProgressAxisLabelDisplayMode = .adaptive,
+        shadedRegions: [ClosedRange<Double>] = []
     ) -> ProgressSnapshot {
         ProgressSnapshot(
             id: item.id,
@@ -185,8 +188,33 @@ enum ProgressCalculator {
             ticks: ticks,
             axisLabels: axisLabels,
             axisLabelDisplayMode: axisLabelDisplayMode,
-            kind: item.kind
+            kind: item.kind,
+            shadedRegions: shadedRegions
         )
+    }
+
+    /// 睡眠时段 → 今日条上的归一化压暗区间;跨午夜拆成条尾+条头两段
+    static func sleepShadedRegions(for schedule: SleepScheduleConfig?) -> [ClosedRange<Double>] {
+        guard let schedule, schedule.isEnabled else { return [] }
+        let dayMinutes = 1440.0
+        let start = Double(((schedule.startMinutes % 1440) + 1440) % 1440) / dayMinutes
+        let end = Double(((schedule.endMinutes % 1440) + 1440) % 1440) / dayMinutes
+
+        if abs(start - end) < 0.0001 {
+            return []
+        }
+        if start < end {
+            return [start...end]
+        }
+
+        var regions: [ClosedRange<Double>] = []
+        if start < 1.0 {
+            regions.append(start...1.0)
+        }
+        if end > 0.0 {
+            regions.append(0.0...end)
+        }
+        return regions
     }
 
     static func pressureStatusText(progress: Double, remaining: TimeInterval, kind: ProgressKind) -> String {

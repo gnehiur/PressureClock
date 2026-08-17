@@ -90,7 +90,7 @@ struct ClockDashboardView: View {
 
     private func buildSnapshots() -> [ProgressSnapshot] {
         settingsStore.orderedProgressItems.compactMap { item in
-            ProgressCalculator.snapshot(for: item, at: referenceDate(for: item))
+            ProgressCalculator.snapshot(for: item, at: referenceDate(for: item), sleepSchedule: settingsStore.sleepSchedule)
         }
     }
 
