@@ -158,34 +158,37 @@ struct ProgressBarRowView: View {
             .filter { $0 > epsilon && $0 < 1.0 - epsilon }
     }
 
-    /// 睡眠段的条高只有清醒段的一小半:黑底上亮度分不出层次,靠剪影粗细讲"这段时间不算数"
-    private func segmentHeight(isSleep: Bool, metrics: AxisMetrics) -> CGFloat {
-        isSleep ? max(metrics.trackHeight * 0.4, 2.0) : metrics.trackHeight
-    }
-
-    /// 分段胶囊条:每段自带轨道+填充并按各自胶囊裁剪;睡眠段细而稍亮的轨道,保证"在场"
+    /// 分段条:几何与单色条完全一致(同轨道、同填充、同粗细),睡眠段仅把白色换成夜色蓝
     private func segmentedBar(width: CGFloat, metrics: AxisMetrics) -> some View {
         let progress = Double(min(max(snapshot.progress, 0), 1))
-        return ForEach(Array(barSegments.enumerated()), id: \.offset) { _, segment in
-            let height = segmentHeight(isSleep: segment.isSleep, metrics: metrics)
-            let startX = snapped(width * CGFloat(segment.range.lowerBound))
-            let segmentWidth = max(snapped(width * CGFloat(segment.range.upperBound)) - startX, 1)
-            let span = segment.range.upperBound - segment.range.lowerBound
-            let fillFraction = span > 0
-                ? min(max((progress - segment.range.lowerBound) / span, 0), 1)
-                : 0
-
+        return ZStack(alignment: .leading) {
             Capsule(style: .continuous)
-                .fill(segment.isSleep ? Self.sleepColor.opacity(0.32) : Color.white.opacity(0.10))
-                .frame(width: segmentWidth, height: height)
-                .overlay(alignment: .leading) {
+                .fill(Color.white.opacity(0.10))
+                .frame(height: metrics.trackHeight)
+
+            ForEach(Array(barSegments.enumerated()), id: \.offset) { _, segment in
+                let startX = snapped(width * CGFloat(segment.range.lowerBound))
+                let endX = snapped(width * CGFloat(segment.range.upperBound))
+
+                if segment.isSleep {
                     Rectangle()
-                        .fill(segment.isSleep ? Self.sleepColor.opacity(0.72) : Color.white.opacity(0.82))
-                        .frame(width: snapped(segmentWidth * CGFloat(fillFraction)))
+                        .fill(Self.sleepColor.opacity(0.32))
+                        .frame(width: max(endX - startX, 0), height: metrics.trackHeight)
+                        .offset(x: startX)
                 }
-                .clipShape(Capsule(style: .continuous))
-                .offset(x: startX, y: metrics.trackVerticalOffset + (metrics.trackHeight - height) / 2)
+
+                if segment.range.lowerBound < progress {
+                    let fillEndX = snapped(width * CGFloat(min(segment.range.upperBound, progress)))
+                    Rectangle()
+                        .fill(segment.isSleep ? Self.sleepColor.opacity(0.82) : Color.white.opacity(0.82))
+                        .frame(width: max(fillEndX - startX, 0), height: metrics.trackHeight)
+                        .offset(x: startX)
+                }
+            }
         }
+        .frame(width: width, height: metrics.trackHeight, alignment: .leading)
+        .clipShape(Capsule(style: .continuous))
+        .offset(y: metrics.trackVerticalOffset)
     }
 
     /// 夜色蓝:睡眠段专用色,黑底上与白色清醒段一眼两分
