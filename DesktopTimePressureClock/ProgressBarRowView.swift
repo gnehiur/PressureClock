@@ -46,12 +46,10 @@ struct ProgressBarRowView: View {
                     .frame(height: metrics.labelLineHeight)
 
                     ZStack(alignment: .leading) {
-                        trackBackground(metrics: metrics)
+                        segmentedBar(width: geometry.size.width, metrics: metrics)
 
-                        progressFill(width: geometry.size.width, metrics: metrics)
-
-                        ForEach(Array(snapshot.shadedRegions.enumerated()), id: \.offset) { _, region in
-                            shadedRegionView(region: region, width: geometry.size.width, metrics: metrics)
+                        ForEach(shadedRegionEdges, id: \.self) { edge in
+                            shadedEdgeMarker(at: edge, width: geometry.size.width, metrics: metrics)
                         }
 
                         ForEach(boundaryTickPositions, id: \.self) { position in
@@ -131,43 +129,74 @@ struct ProgressBarRowView: View {
         return deduplicated
     }
 
-    private func trackBackground(metrics: AxisMetrics) -> some View {
-        Capsule(style: .continuous)
-            .fill(Color.white.opacity(0.10))
-            .frame(height: metrics.trackHeight)
-            .offset(y: metrics.trackVerticalOffset)
-    }
+    /// 把 0-1 切成"清醒/睡眠"交替段;无睡眠配置时就是单个清醒段
+    private var barSegments: [(range: ClosedRange<Double>, isSleep: Bool)] {
+        let sleepRegions = snapshot.shadedRegions
+            .map { max($0.lowerBound, 0)...min($0.upperBound, 1) }
+            .sorted { $0.lowerBound < $1.lowerBound }
+        guard !sleepRegions.isEmpty else { return [(0.0...1.0, false)] }
 
-    private func progressFill(width: CGFloat, metrics: AxisMetrics) -> some View {
-        Rectangle()
-            .fill(Color.white.opacity(0.82))
-            .frame(width: max(snapped(width * snapshot.progress), 0), height: metrics.trackHeight)
-            .offset(y: metrics.trackVerticalOffset)
-    }
-
-    /// 睡眠区间压暗:黑色半透明罩在轨道与填充之上、刻度之下;区间边界(非条头条尾)立一根记号
-    private func shadedRegionView(region: ClosedRange<Double>, width: CGFloat, metrics: AxisMetrics) -> some View {
-        let epsilon = 0.0001
-        let startX = snapped(width * CGFloat(region.lowerBound))
-        let regionWidth = max(snapped(width * CGFloat(region.upperBound - region.lowerBound)), 0)
-        let edges = [region.lowerBound, region.upperBound].filter { $0 > epsilon && $0 < 1.0 - epsilon }
-
-        return ZStack(alignment: .leading) {
-            Rectangle()
-                .fill(Color.black.opacity(0.55))
-                .frame(width: regionWidth, height: metrics.trackHeight)
-                .offset(x: startX, y: metrics.trackVerticalOffset)
-
-            ForEach(edges, id: \.self) { edge in
-                Rectangle()
-                    .fill(Color.white.opacity(0.46))
-                    .frame(width: metrics.majorTickWidth, height: metrics.boundaryTickHeight)
-                    .offset(
-                        x: snappedHorizontalOffset(for: edge, itemWidth: metrics.majorTickWidth, totalWidth: width),
-                        y: (metrics.axisHeight - metrics.boundaryTickHeight) / 2
-                    )
+        var segments: [(ClosedRange<Double>, Bool)] = []
+        var cursor = 0.0
+        for region in sleepRegions {
+            if region.lowerBound > cursor + 0.0001 {
+                segments.append((cursor...region.lowerBound, false))
             }
+            segments.append((region, true))
+            cursor = region.upperBound
         }
+        if cursor < 1.0 - 0.0001 {
+            segments.append((cursor...1.0, false))
+        }
+        return segments
+    }
+
+    private var shadedRegionEdges: [Double] {
+        let epsilon = 0.0001
+        return snapshot.shadedRegions
+            .flatMap { [$0.lowerBound, $0.upperBound] }
+            .filter { $0 > epsilon && $0 < 1.0 - epsilon }
+    }
+
+    /// 睡眠段的条高只有清醒段的一小半:黑底上亮度分不出层次,靠剪影粗细讲"这段时间不算数"
+    private func segmentHeight(isSleep: Bool, metrics: AxisMetrics) -> CGFloat {
+        isSleep ? max(metrics.trackHeight * 0.4, 2.0) : metrics.trackHeight
+    }
+
+    /// 分段胶囊条:每段自带轨道+填充并按各自胶囊裁剪;睡眠段细而稍亮的轨道,保证"在场"
+    private func segmentedBar(width: CGFloat, metrics: AxisMetrics) -> some View {
+        let progress = Double(min(max(snapshot.progress, 0), 1))
+        return ForEach(Array(barSegments.enumerated()), id: \.offset) { _, segment in
+            let height = segmentHeight(isSleep: segment.isSleep, metrics: metrics)
+            let startX = snapped(width * CGFloat(segment.range.lowerBound))
+            let segmentWidth = max(snapped(width * CGFloat(segment.range.upperBound)) - startX, 1)
+            let span = segment.range.upperBound - segment.range.lowerBound
+            let fillFraction = span > 0
+                ? min(max((progress - segment.range.lowerBound) / span, 0), 1)
+                : 0
+
+            Capsule(style: .continuous)
+                .fill(Color.white.opacity(segment.isSleep ? 0.24 : 0.10))
+                .frame(width: segmentWidth, height: height)
+                .overlay(alignment: .leading) {
+                    Rectangle()
+                        .fill(Color.white.opacity(segment.isSleep ? 0.50 : 0.82))
+                        .frame(width: snapped(segmentWidth * CGFloat(fillFraction)))
+                }
+                .clipShape(Capsule(style: .continuous))
+                .offset(x: startX, y: metrics.trackVerticalOffset + (metrics.trackHeight - height) / 2)
+        }
+    }
+
+    /// 睡眠边界(入睡/起床)记号:比普通刻度亮,标出一天的"开机/关机"时刻
+    private func shadedEdgeMarker(at position: Double, width: CGFloat, metrics: AxisMetrics) -> some View {
+        Rectangle()
+            .fill(Color.white.opacity(0.46))
+            .frame(width: metrics.majorTickWidth, height: metrics.boundaryTickHeight)
+            .offset(
+                x: snappedHorizontalOffset(for: position, itemWidth: metrics.majorTickWidth, totalWidth: width),
+                y: (metrics.axisHeight - metrics.boundaryTickHeight) / 2
+            )
     }
 
     private func markerView(width: CGFloat, metrics: AxisMetrics) -> some View {
