@@ -70,7 +70,10 @@ final class ProgressCalculatorTests: XCTestCase {
         XCTAssertEqual(snapshot.title, "今日")
         XCTAssertEqual(snapshot.statusText, "已50% · 剩12小时")
         XCTAssertEqual(snapshot.ticks.count, 23)
-        XCTAssertTrue(snapshot.axisLabels.contains(where: { $0.text == "12:00" && $0.prominence == .major }))
+        XCTAssertEqual(snapshot.axisLabels.count, 25, "0-24 整点全铺")
+        XCTAssertTrue(snapshot.axisLabels.contains(where: { $0.text == "12" && $0.prominence == .highlight }))
+        XCTAssertTrue(snapshot.axisLabels.contains(where: { $0.text == "09" && $0.prominence == .major }))
+        XCTAssertTrue(snapshot.axisLabels.contains(where: { $0.text == "01" && $0.prominence == .minor }))
         XCTAssertTrue(snapshot.ticks.contains(where: { $0.prominence == .major && abs($0.position - 0.5) < 0.00001 }))
     }
 

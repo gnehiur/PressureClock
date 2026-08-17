@@ -409,28 +409,29 @@ enum ProgressCalculator {
         }
     }
 
+    /// 整点全铺:全轴统一紧凑两位数(与"本10分钟"行同款语言),正午高亮、3的倍数加重、其余暗档;
+    /// 宽屏(iPad横屏)24个整点全显示,窄屏由碰撞避让自动退化回3小时锚点
     private static func dayAxisLabels() -> [ProgressAxisLabel] {
         var labels: [ProgressAxisLabel] = [
-            ProgressAxisLabel(position: 0.0, text: "00:00", prominence: .boundary),
-            ProgressAxisLabel(position: 1.0, text: "24:00", prominence: .boundary)
+            ProgressAxisLabel(position: 0.0, text: "00", prominence: .boundary),
+            ProgressAxisLabel(position: 1.0, text: "24", prominence: .boundary)
         ]
 
-        for hour in [6, 12, 18] {
-            labels.append(
-                ProgressAxisLabel(
-                    position: unitBoundaryPosition(index: hour, total: 24),
-                    text: String(format: "%02d:00", hour),
-                    prominence: .major
-                )
-            )
-        }
+        for hour in 1...23 {
+            let prominence: ProgressAxisLabelProminence
+            if hour == 12 {
+                prominence = .highlight
+            } else if hour.isMultiple(of: 3) {
+                prominence = .major
+            } else {
+                prominence = .minor
+            }
 
-        for hour in [3, 9, 15, 21] {
             labels.append(
                 ProgressAxisLabel(
                     position: unitBoundaryPosition(index: hour, total: 24),
-                    text: String(format: "%02d:00", hour),
-                    prominence: .minor
+                    text: String(format: "%02d", hour),
+                    prominence: prominence
                 )
             )
         }

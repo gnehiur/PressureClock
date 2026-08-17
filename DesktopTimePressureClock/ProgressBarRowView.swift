@@ -381,7 +381,9 @@ struct ProgressBarRowView: View {
     }
 
     private func measuredLabelWidth(for label: ProgressAxisLabel, metrics: AxisMetrics) -> CGFloat {
-        let fontSize = snapshot.axisLabelDisplayMode == .all ? max(metrics.labelFontSize - 1.5, 9) : metrics.labelFontSize
+        let fontSize = snapshot.axisLabelDisplayMode == .all || label.prominence == .minor
+            ? max(metrics.labelFontSize - 1.5, 9)
+            : metrics.labelFontSize
         let font = PlatformFont.systemFont(
             ofSize: fontSize,
             weight: nsFontWeight(for: label.prominence)
@@ -397,6 +399,11 @@ struct ProgressBarRowView: View {
                 size: max(metrics.labelFontSize - 1.5, 9),
                 weight: label.prominence == .boundary || label.prominence == .highlight ? .semibold : .medium
             )
+        }
+
+        // 小字档缩半档字号:密排整点时既让出宽度,又拉开与锚点的层级
+        if label.prominence == .minor {
+            return .system(size: max(metrics.labelFontSize - 1.5, 9), weight: .regular)
         }
 
         return .system(
@@ -505,7 +512,7 @@ struct ProgressBarRowView: View {
                 labelFontSize: 11.5,
                 labelLineHeight: 17,
                 labelToAxisSpacing: 5,
-                minimumLabelGap: 18,
+                minimumLabelGap: 10,
                 axisHeight: 22,
                 trackHeight: 7,
                 highlightTickWidth: 2.0,
@@ -522,7 +529,7 @@ struct ProgressBarRowView: View {
                 labelFontSize: 12,
                 labelLineHeight: 18,
                 labelToAxisSpacing: 6,
-                minimumLabelGap: 24,
+                minimumLabelGap: 8,
                 axisHeight: 24,
                 trackHeight: 7.5,
                 highlightTickWidth: 2.1,
