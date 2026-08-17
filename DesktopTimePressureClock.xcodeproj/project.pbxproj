@@ -423,7 +423,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mini.PressureClockMobile;
 				PRODUCT_NAME = PressureClock;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -546,7 +546,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mini.PressureClockMobile;
 				PRODUCT_NAME = PressureClock;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
