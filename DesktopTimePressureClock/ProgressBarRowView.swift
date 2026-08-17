@@ -176,11 +176,11 @@ struct ProgressBarRowView: View {
                 : 0
 
             Capsule(style: .continuous)
-                .fill(Color.white.opacity(segment.isSleep ? 0.24 : 0.10))
+                .fill(segment.isSleep ? Self.sleepColor.opacity(0.32) : Color.white.opacity(0.10))
                 .frame(width: segmentWidth, height: height)
                 .overlay(alignment: .leading) {
                     Rectangle()
-                        .fill(Color.white.opacity(segment.isSleep ? 0.50 : 0.82))
+                        .fill(segment.isSleep ? Self.sleepColor.opacity(0.72) : Color.white.opacity(0.82))
                         .frame(width: snapped(segmentWidth * CGFloat(fillFraction)))
                 }
                 .clipShape(Capsule(style: .continuous))
@@ -188,10 +188,13 @@ struct ProgressBarRowView: View {
         }
     }
 
+    /// 夜色蓝:睡眠段专用色,黑底上与白色清醒段一眼两分
+    private static let sleepColor = Color(red: 0.42, green: 0.62, blue: 1.0)
+
     /// 睡眠边界(入睡/起床)记号:比普通刻度亮,标出一天的"开机/关机"时刻
     private func shadedEdgeMarker(at position: Double, width: CGFloat, metrics: AxisMetrics) -> some View {
         Rectangle()
-            .fill(Color.white.opacity(0.46))
+            .fill(Self.sleepColor.opacity(0.70))
             .frame(width: metrics.majorTickWidth, height: metrics.boundaryTickHeight)
             .offset(
                 x: snappedHorizontalOffset(for: position, itemWidth: metrics.majorTickWidth, totalWidth: width),
